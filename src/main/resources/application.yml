@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: StartP9Monolithic
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/StartP9Monolithic
+    username: postgres
+    password: 3539
+    driverClassName: org.postgresql.Driver
+
+server:
+  port: 8080
