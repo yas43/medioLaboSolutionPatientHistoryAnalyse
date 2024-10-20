@@ -8,5 +8,7 @@ import java.util.*;
 
 @Repository
 public interface UserInformationRepository extends JpaRepository<UserInformation,Integer> {
+
    Optional<UserInformation> findByFirstname(String name);
+   Boolean existsByFirstname(String firstname);
 }

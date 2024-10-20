@@ -4,6 +4,7 @@ package com.ykeshtdar.StartP9Monolothic.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -16,7 +17,7 @@ public class UserInformation {
     Integer id;
     String firstname;
     String lastname;
-    Date birthdate;
+    LocalDate birthdate;
     String gender;
     String address;
     String phoneNumber;
