@@ -18,7 +18,7 @@ public class UserInformationController {
     }
 
     @GetMapping
-    public UserInformation displayUserByName(@RequestParam("name")String name){
+    public UserInformation displayUserByName(@RequestParam("firstname")String name){
         return userInformationService.findByUsername(name);
     }
 

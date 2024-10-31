@@ -1,19 +1,20 @@
 package com.ykeshtdar.StartP9Monolothic.model;
 
 
-import jakarta.persistence.*;
+
 import lombok.*;
+import org.springframework.data.annotation.*;
+import org.springframework.data.mongodb.core.mapping.*;
 
 import java.time.LocalDate;
-import java.util.*;
 
-@Entity
+
+@Document("loginForm")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInformation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   @Id
     Integer id;
     String firstname;
     String lastname;

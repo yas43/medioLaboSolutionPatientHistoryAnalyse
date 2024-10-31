@@ -33,7 +33,7 @@ public class UserInformationService {
                                                  LocalDate birthdate,
                                                  String address,
                                                  String phoneNumber) {
-        if (isAlreadyExist(firstname)){
+        if (!isAlreadyExist(firstname)){
              throw  new RuntimeException("this user dose not exist");
         }
        UserInformation userInformation = findByUsername(firstname);
