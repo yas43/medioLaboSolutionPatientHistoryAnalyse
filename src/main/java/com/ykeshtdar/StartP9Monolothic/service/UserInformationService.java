@@ -16,6 +16,9 @@ import java.util.stream.*;
 
 @Service
 public class UserInformationService {
+
+    List<String> keywords = Arrays.asList("Hémoglobine A1C","Microalbumine","Taille","Poids" +
+            "Fumeur","Fumeuse","Anormal","Cholestérol","Vertiges","Rechute","Réaction","Anticorps");
     private final UserInformationRepository userInformationRepository;
     private final MongoTemplate mongoTemplate;
 
@@ -90,4 +93,37 @@ public class UserInformationService {
               .map(prescription -> prescription.getNote())
               .collect(Collectors.toList());
     }
+
+    public Map<String, Integer> analysePatientHistory(Integer id) {
+        List<String>prescriptions = displayPrescriptions(id);
+        Map<String,Integer> result = new HashMap<>();
+
+        List<String> words = wordSplitter(prescriptions);
+
+        for (String keyword : keywords) {
+            int i = 0;
+            for (String word : words) {
+                if (keyword.equals(word)) {
+                    i++;
+                }
+            }
+            result.put(keyword, i);
+        }
+
+        return result;
+    }
+
+
+    public List<String> wordSplitter(List<String> list){
+        List<String> wordOfAllPrescription = new LinkedList<>();
+        for (String prescription:list){
+            String[] words = prescription.split(" ");
+            for (String word:words){
+                wordOfAllPrescription.add(word);
+            }
+        }
+
+        return wordOfAllPrescription;
+    }
+
 }

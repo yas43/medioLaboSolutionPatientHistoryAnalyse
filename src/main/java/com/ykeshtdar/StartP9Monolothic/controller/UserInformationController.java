@@ -5,8 +5,7 @@ import com.ykeshtdar.StartP9Monolothic.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("user")
@@ -61,4 +60,10 @@ public class UserInformationController {
     public List<String> displayPrescriptions(@RequestParam("id")Integer id){
         return userInformationService.displayPrescriptions(id);
     }
+
+    @GetMapping("analyse")
+    public Map<String,Integer> analyse(@RequestParam("id")Integer id){
+        return userInformationService.analysePatientHistory(id);
+    }
+
 }
