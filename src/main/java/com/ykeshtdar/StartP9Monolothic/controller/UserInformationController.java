@@ -48,4 +48,17 @@ public class UserInformationController {
     public void deleteUser(@RequestParam("firstname")String firstname){
          userInformationService.deleteUser(firstname);
     }
+
+
+
+    @PostMapping("addPrescription")
+    public void addPrescription(@RequestParam("id")Integer id,@RequestBody Prescription prescription){
+         userInformationService.addPrescriptionToPatient(id,prescription);
+    }
+
+
+    @GetMapping("prescriptions")
+    public List<String> displayPrescriptions(@RequestParam("id")Integer id){
+        return userInformationService.displayPrescriptions(id);
+    }
 }

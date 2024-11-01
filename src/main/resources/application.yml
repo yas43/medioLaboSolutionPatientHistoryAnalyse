@@ -2,5 +2,5 @@
 spring:
   data:
     mongodb:
-      database: test
+      database: test2
       uri: mongodb://admin:3539@localhost:27017
