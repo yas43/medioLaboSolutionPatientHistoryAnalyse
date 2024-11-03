@@ -61,7 +61,7 @@ public class UserInformationController {
 //        return userInformationService.displayPrescriptions(id);
 //    }
 
-    @GetMapping()
+    @GetMapping("result")
     public Map<String,Integer> analyse(@RequestParam("id")Integer id){
         return userInformationService.analysePatientHistory(id);
     }
