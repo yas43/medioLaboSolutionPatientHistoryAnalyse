@@ -17,8 +17,7 @@ import java.util.stream.*;
 @Service
 public class UserInformationService {
 
-    List<String> keywords = Arrays.asList("Hémoglobine A1C","Microalbumine","Taille","Poids" +
-            "Fumeur","Fumeuse","Anormal","Cholestérol","Vertiges","Rechute","Réaction","Anticorps");
+    List<String> keywords = Arrays.asList("Hémoglobine A1C","Microalbumine","Taille","Poids","Fumeur","Fumeuse","Anormal","Cholestérol","Vertiges","Rechute","Réaction","Anticorps");
     private final UserInformationRepository userInformationRepository;
     private final MongoTemplate mongoTemplate;
 
@@ -85,8 +84,6 @@ public class UserInformationService {
       UserInformation patient = userInformationRepository.findById(id)
               .orElseThrow(()->new RuntimeException("patient not founded"));
 
-        System.out.println("firstname is "+patient.getFirstname());
-        System.out.println("prescriptions  is "+patient.getPrescriptions().size());
 
    return    patient.getPrescriptions()
               .stream()
