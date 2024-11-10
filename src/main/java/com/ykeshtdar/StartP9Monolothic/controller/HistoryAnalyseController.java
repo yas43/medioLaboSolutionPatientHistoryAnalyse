@@ -1,19 +1,17 @@
 package com.ykeshtdar.StartP9Monolothic.controller;
 
-import com.ykeshtdar.StartP9Monolothic.model.*;
 import com.ykeshtdar.StartP9Monolothic.service.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @RestController
 @RequestMapping("analyse")
-public class UserInformationController {
-    private final UserInformationService userInformationService;
+public class HistoryAnalyseController {
+    private final HistoryAnalyseService historyAnalyseService;
 
-    public UserInformationController(UserInformationService userInformationService) {
-        this.userInformationService = userInformationService;
+    public HistoryAnalyseController(HistoryAnalyseService historyAnalyseService) {
+        this.historyAnalyseService = historyAnalyseService;
     }
 
 //    @GetMapping
@@ -63,7 +61,12 @@ public class UserInformationController {
 
     @GetMapping("result")
     public Map<String,Integer> analyse(@RequestParam("id")Integer id){
-        return userInformationService.analysePatientHistory(id);
+        return historyAnalyseService.analysePatientHistory(id);
+    }
+
+    @GetMapping("score/{id}")
+    public Integer scoreCalculator(@PathVariable("id")Integer id){
+        return historyAnalyseService.calculateScore(id);
     }
 
 }

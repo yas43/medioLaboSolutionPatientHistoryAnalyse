@@ -8,10 +8,10 @@ import org.springframework.stereotype.*;
 import java.util.*;
 
 
-public interface UserInformationRepository extends MongoRepository<UserInformation,Integer> {
+//public interface UserInformationRepository extends MongoRepository<UserInformation,Integer> {
 
-   Optional<UserInformation> findByFirstname(String name);
-   Boolean existsByFirstname(String firstname);
+//   Optional<UserInformation> findByFirstname(String name);
+//   Boolean existsByFirstname(String firstname);
 
 
 //   @Query(value = "{ '_id': ?0 }", fields = "{'prescription' : 1}")
@@ -20,4 +20,4 @@ public interface UserInformationRepository extends MongoRepository<UserInformati
 //   @Query(value = "{ 'id':?0 }",update = "{ '$push':{ 'prescription':?1 }}")
 //   void addPrescriptionToPatient(@Param("patientId") String patientId,
 //                                 @Param("prescription") Prescription prescription);
-}
+//}

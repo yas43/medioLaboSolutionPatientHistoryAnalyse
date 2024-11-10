@@ -13,6 +13,6 @@ import java.util.*;
 public class Prescription {
     @Id
     Integer id;
-    String firstname;
+//    String firstname;
     String note;
 }
