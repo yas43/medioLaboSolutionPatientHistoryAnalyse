@@ -107,7 +107,13 @@ public class HistoryAnalyseService {
         List<String>prescriptions = displayPrescriptions(id);
         Map<String,Integer> result = new HashMap<>();
 
+        if (prescriptions==null){
+            return result;
+        }
+
         List<String> words = wordSplitter(prescriptions);
+
+
 
         for (String keyword : keywords) {
             int i = 0;
@@ -144,6 +150,9 @@ public class HistoryAnalyseService {
                .mapToInt(r->r.getValue())
                .sum();
 
+//       if (score==null){
+//           return 0;
+//       }
        return score;
     }
 
