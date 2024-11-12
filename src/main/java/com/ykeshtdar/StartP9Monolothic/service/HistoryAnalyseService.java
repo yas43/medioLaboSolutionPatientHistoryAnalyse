@@ -118,7 +118,7 @@ public class HistoryAnalyseService {
         for (String keyword : keywords) {
             int i = 0;
             for (String word : words) {
-                if (keyword.equals(word)) {
+                if (keyword.equalsIgnoreCase(word)) {
                     i++;
                 }
             }
