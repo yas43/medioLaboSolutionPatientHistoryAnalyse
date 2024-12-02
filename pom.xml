@@ -11,7 +11,7 @@
 	<groupId>com.ykeshtdar</groupId>
 	<artifactId>StartP9Monolothic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>StartP9Monolothic</name>
+	<name>mediLaboSolutionPatienHistoryAnalyse</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
