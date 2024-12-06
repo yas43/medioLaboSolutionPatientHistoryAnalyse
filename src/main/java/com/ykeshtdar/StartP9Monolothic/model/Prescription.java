@@ -6,12 +6,12 @@ import org.springframework.data.mongodb.core.mapping.*;
 
 import java.util.*;
 
-@Document("prescription")
+//@Document("prescription")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Prescription {
-    @Id
+//    @Id
     Integer id;
 //    String firstname;
     String note;

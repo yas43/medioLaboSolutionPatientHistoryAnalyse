@@ -1,11 +1,6 @@
 server:
   port: 8091
 
-#spring:
-#  data:
-#    mongodb:
-#      database: p9
-#      uri: mongodb://admin:3539@localhost:27017
 service:
   url:
-    patientPrescriptionBase: http://localhost:8080/prescription
+    patientPrescriptionBase: http://gatewaycontainer:8080/prescription
