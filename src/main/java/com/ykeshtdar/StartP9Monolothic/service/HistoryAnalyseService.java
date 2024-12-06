@@ -1,6 +1,7 @@
 package com.ykeshtdar.StartP9Monolothic.service;
 
 import com.ykeshtdar.StartP9Monolothic.model.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.mongodb.core.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.client.*;
@@ -15,6 +16,8 @@ public class HistoryAnalyseService {
 //    private final UserInformationRepository userInformationRepository;
 //    private final MongoTemplate mongoTemplate;
     private final RestTemplate restTemplate;
+    @Value("${service.url.patientPrescriptionBase}")
+    private String patientPrescriptionUrlBase;
 
     public HistoryAnalyseService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -83,7 +86,9 @@ public class HistoryAnalyseService {
 //      UserInformation patient = userInformationRepository.findById(id)
 //              .orElseThrow(()->new RuntimeException("patient not founded"));
 
-      String url = "http://localhost:8086/prescription/prescriptions/{id}";
+        String displayPrescriptionUrl = String.format("%s/prescriptions/%d",patientPrescriptionUrlBase,id);
+
+      String url = displayPrescriptionUrl;
 
 
         Map<String,Object> uriVariable = new HashMap<>();
