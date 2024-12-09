@@ -3,4 +3,4 @@ server:
 
 service:
   url:
-    patientPrescriptionBase: http://gatewaycontainer:8080/prescription
+    patientPrescriptionBase: http://localhost:8080/prescription
