@@ -66,6 +66,7 @@ public class HistoryAnalyseController {
 
     @GetMapping("score/{id}")
     public Integer scoreCalculator(@PathVariable("id")Integer id){
+
         return historyAnalyseService.calculateScore(id);
     }
 
