@@ -1,6 +1,11 @@
 package com.ykeshtdar.StartP9Monolothic.controller;
 
 import com.ykeshtdar.StartP9Monolothic.service.*;
+import jakarta.servlet.http.*;
+import org.springframework.http.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.context.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -65,8 +70,13 @@ public class HistoryAnalyseController {
     }
 
     @GetMapping("score/{id}")
-    public Integer scoreCalculator(@PathVariable("id")Integer id){
-
+    public Integer scoreCalculator(@PathVariable("id")Integer id, HttpServletRequest request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principle = authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails) principle;
+        System.out.println("inside analyse and received token in request.getheaders.auth.7 is "+request.getHeader(HttpHeaders.AUTHORIZATION.substring(7)));
+        System.out.println("inside analyse and username is "+userDetails.getUsername());
+        System.out.println("inside analyse and password is "+userDetails.getPassword());
         return historyAnalyseService.calculateScore(id);
     }
 

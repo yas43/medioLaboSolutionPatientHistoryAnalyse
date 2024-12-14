@@ -2,7 +2,9 @@ package com.ykeshtdar.StartP9Monolothic.service;
 
 import com.ykeshtdar.StartP9Monolothic.model.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.core.*;
 import org.springframework.data.mongodb.core.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.client.*;
 
@@ -85,6 +87,12 @@ public class HistoryAnalyseService {
     public List<String> displayPrescriptions(Integer id) {
 //      UserInformation patient = userInformationRepository.findById(id)
 //              .orElseThrow(()->new RuntimeException("patient not founded"));
+        System.out.println("in analyse service displayPrescription id is "+id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("internalRequest","true");
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         String displayPrescriptionUrl = String.format("%s/prescriptions/%d",patientPrescriptionUrlBase,id);
 
@@ -94,10 +102,16 @@ public class HistoryAnalyseService {
         Map<String,Object> uriVariable = new HashMap<>();
         uriVariable.put("id",id);
 
-        List<String> allTheNotes = restTemplate.getForObject(url,List.class,uriVariable);
+        ResponseEntity<List<String>> response = restTemplate.exchange(
+                displayPrescriptionUrl,
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<List<String>>() {});
 
-
-       return allTheNotes;
+//        List<String> allTheNotes = restTemplate.getForObject(url,List.class,uriVariable);
+        System.out.println("inside analyse service display Prescription and return list is "+response.getBody());
+            return response.getBody();
+//       return allTheNotes;
 //                .stream()
 //                .map(prescription -> prescription.getNote())
 //              .collect(Collectors.toList());
@@ -109,6 +123,7 @@ public class HistoryAnalyseService {
     }
 
     public Map<String, Integer> analysePatientHistory(Integer id) {
+        System.out.println("in analyse service analysePatient id is "+id);
         List<String>prescriptions = displayPrescriptions(id);
         Map<String,Integer> result = new HashMap<>();
 
@@ -129,7 +144,7 @@ public class HistoryAnalyseService {
             }
             result.put(keyword, i);
         }
-
+        System.out.println("in analyse service analysePatient result is");
         return result;
     }
 
@@ -148,6 +163,7 @@ public class HistoryAnalyseService {
 
 
     public Integer calculateScore(Integer id){
+        System.out.println("in analyse service calculateScore id is "+id);
        Map<String,Integer> map =  analysePatientHistory(id);
 
        Integer score = map.entrySet()
@@ -158,6 +174,7 @@ public class HistoryAnalyseService {
 //       if (score==null){
 //           return 0;
 //       }
+        System.out.println("in analyse service calculateScore , score is "+score);
        return score;
     }
 

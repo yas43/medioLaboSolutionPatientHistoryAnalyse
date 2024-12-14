@@ -4,3 +4,5 @@ server:
 service:
   url:
     patientPrescriptionBase: http://localhost:8080/prescription
+    patientGetTokenBase: http://localhost:8080/patient
+    patientAuthorizationBase: http://localhost:8080/login
