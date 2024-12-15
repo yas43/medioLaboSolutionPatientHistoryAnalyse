@@ -77,6 +77,7 @@ public class HistoryAnalyseController {
         System.out.println("inside analyse and received token in request.getheaders.auth.7 is "+request.getHeader(HttpHeaders.AUTHORIZATION.substring(7)));
         System.out.println("inside analyse and username is "+userDetails.getUsername());
         System.out.println("inside analyse and password is "+userDetails.getPassword());
+        System.out.println("inside analyse controller score method score is "+historyAnalyseService.calculateScore(id));
         return historyAnalyseService.calculateScore(id);
     }
 

@@ -102,6 +102,11 @@ public class HistoryAnalyseService {
         Map<String,Object> uriVariable = new HashMap<>();
         uriVariable.put("id",id);
 
+//        ResponseEntity<List<String>> response = restTemplate.exchange(
+//                displayPrescriptionUrl,
+//                HttpMethod.GET,
+//                entity,
+//                new ParameterizedTypeReference<List<String>>() {});
         ResponseEntity<List<String>> response = restTemplate.exchange(
                 displayPrescriptionUrl,
                 HttpMethod.GET,
