@@ -26,7 +26,7 @@ public class HistoryAnalyseController {
     }
 
     @GetMapping("score/{id}")
-    public Integer scoreCalculator(@PathVariable("id")Integer id, HttpServletRequest request){
+    public String scoreCalculator(@PathVariable("id")Integer id, HttpServletRequest request){
 
         return historyAnalyseService.calculateScore(id);
     }

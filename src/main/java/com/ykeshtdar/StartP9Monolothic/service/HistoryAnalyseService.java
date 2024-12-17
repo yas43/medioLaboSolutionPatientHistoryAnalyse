@@ -1,5 +1,6 @@
 package com.ykeshtdar.StartP9Monolothic.service;
 
+import com.ykeshtdar.StartP9Monolothic.*;
 import com.ykeshtdar.StartP9Monolothic.model.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.core.*;
@@ -8,6 +9,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.client.*;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -19,6 +22,9 @@ public class HistoryAnalyseService {
     private final RestTemplate restTemplate;
     @Value("${service.url.patientPrescriptionBase}")
     private String patientPrescriptionUrlBase;
+
+    @Value("${service.url.patientInfoBase}")
+    private String patientInfoUrlBase;
 
     public HistoryAnalyseService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -91,8 +97,9 @@ public class HistoryAnalyseService {
     }
 
 
-    public Integer calculateScore(Integer id){
-        System.out.println("in analyse service calculateScore id is "+id);
+    public String calculateScore(Integer id){
+
+
        Map<String,Integer> map =  analysePatientHistory(id);
 
        Integer score = map.entrySet()
@@ -100,8 +107,80 @@ public class HistoryAnalyseService {
                .mapToInt(r->r.getValue())
                .sum();
 
-        System.out.println("in analyse service calculateScore , score is "+score);
-       return score;
+       // age calculation and gender
+
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("internalRequest","true");
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String findPatientUrl = String.format("%s/findById/%d",patientInfoUrlBase,id);
+
+        Map<String,Object> uriVariable = new HashMap<>();
+        uriVariable.put("id",id);
+
+
+        ResponseEntity<UserInformation> response = restTemplate.exchange(
+                findPatientUrl,
+                HttpMethod.GET,
+                entity,
+                UserInformation.class);
+
+        LocalDate now = LocalDate.now();
+        Period period = Period.between(response.getBody().getBirthdate(), now);
+
+        Integer age = period.getYears();
+
+        String gender = response.getBody().getGender();
+
+        String riskLevel = String.valueOf(evaluate(score,age,gender));
+
+
+
+        return riskLevel;
     }
+
+
+
+
+
+    public RiskLevel evaluate(int triggers, int age, String gender) {
+        if (triggers == 0) {
+            return RiskLevel.None;
+        } else {
+            if (gender.equals("male") && age < 30) {
+                if (triggers >= 5) {
+                    return RiskLevel.EarlyOnset;
+                } else if (triggers == 3) {
+                    return RiskLevel.InDanger;
+                }
+            }
+            if (gender.equals("female") && age < 30) {
+                if (triggers == 4) {
+                    return RiskLevel.InDanger;
+                } else if (triggers >= 7) {
+                    return RiskLevel.EarlyOnset;
+                }
+            }
+            if (age > 30) {
+                if (triggers > 1 && triggers < 6) {
+                    return RiskLevel.Borderline;
+                } else if (triggers == 6 || triggers == 7) {
+                    return RiskLevel.InDanger;
+                } else if (triggers >= 8) {
+                    return RiskLevel.EarlyOnset;
+                }
+            }
+        }
+        return RiskLevel.None;
+    }
+
+
+
+
+
+
 
 }
